@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return 'List of categories';
+        return view('admin.categories.index');
     }
 
     /**

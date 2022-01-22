@@ -23,10 +23,11 @@ use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 //});
 
 
-Route::get('/',[IndexController::class, 'index']);
+Route::get('/',[IndexController::class, 'index'])->name('index');
 
 //news
 Route::group(['as'=>'admin.', 'prefix' => 'admin'], function (){
+    Route::view('/', 'admin.index')->name('index');
     Route::resource('/categories', AdminCategoryController::class);
     Route::resource('/news', AdminNewsController::class);
 });
