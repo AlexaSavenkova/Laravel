@@ -12,6 +12,7 @@ class NewsController extends Controller
        return view('news.index', [
             'newsList' => $news
         ]);
+
     }
 
     public function show(int $id)

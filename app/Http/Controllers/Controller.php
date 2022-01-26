@@ -101,4 +101,15 @@ class Controller extends BaseController
 
         return $data;
     }
+
+    protected function getArrayFromJsonFile($file)
+    {
+        if(file_exists($file)){
+            $json = file_get_contents($file);
+            $data = json_decode($json, true);
+        } else {
+            $data = [];
+        }
+        return $data;
+    }
 }

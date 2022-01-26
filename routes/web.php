@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\NewsController;
 use \App\Http\Controllers\IndexController;
 use \App\Http\Controllers\CategoryController;
+use \App\Http\Controllers\FeedbackController;
+use \App\Http\Controllers\OrderController;
 use \App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 
@@ -25,19 +27,40 @@ use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 
 Route::get('/',[IndexController::class, 'index'])->name('index');
 
+// feedback
+Route::prefix('feedback')->group(function (){
+    Route::get('/', [FeedbackController::class, 'index'])
+        ->name('feedback');
+    Route::post('/store', [FeedbackController::class, 'store'])
+        ->name('feedback.store');
+});
+
+// order
+Route::prefix('order')->group(function (){
+    Route::get('/', [OrderController::class, 'index'])
+        ->name('order');
+    Route::post('/store', [OrderController::class, 'store'])
+        ->name('order.store');
+});
+
 //news
+Route::group(['as'=>'news.', 'prefix'=>'news'], function (){
+    Route::get('/', [NewsController::class, 'index'])
+        ->name('index');
+    Route::get('/{id}', [NewsController::class, 'show'])
+        ->where('id','\d+')
+        ->name('show');
+    Route::get('/categories', [CategoryController::class, 'index'])
+        ->name('categories');
+    Route::get('/category/{slug}', [CategoryController::class, 'show'])
+        ->name('category');
+});
+
+//admin
 Route::group(['as'=>'admin.', 'prefix' => 'admin'], function (){
     Route::view('/', 'admin.index')->name('index');
     Route::resource('/categories', AdminCategoryController::class);
     Route::resource('/news', AdminNewsController::class);
 });
 
-Route::get('/news', [NewsController::class, 'index'])
-    ->name('news.index');
-Route::get('news/{id}', [NewsController::class, 'show'])
-    ->where('id','\d+')
-    ->name('news.show');
-Route::get('news/categories', [CategoryController::class, 'index'])
-    ->name('news.categories');
-Route::get('news/category/{slug}', [CategoryController::class, 'show'])
-    ->name('news.category');
+

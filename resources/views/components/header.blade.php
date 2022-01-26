@@ -12,6 +12,8 @@
                         <li><a href="{{ route('index') }}" class="text-white">На главную</a></li>
                         <li><a href="{{ route('news.index') }}" class="text-white">Все новости</a></li>
                         <li><a href="{{ route('news.categories') }}" class="text-white">Категории</a></li>
+                        <li><a href="{{ route('feedback') }}" class="text-white">Обратная связь</a></li>
+                        <li><a href="{{ route('order') }}" class="text-white">Заказ на выгрузку данных</a></li>
                     </ul>
                 </div>
             </div>
