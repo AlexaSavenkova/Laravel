@@ -1,5 +1,6 @@
 <?php
 
+use \Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\NewsController;
 use \App\Http\Controllers\IndexController;
@@ -61,6 +62,19 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin'], function (){
     Route::view('/', 'admin.index')->name('index');
     Route::resource('/categories', AdminCategoryController::class);
     Route::resource('/news', AdminNewsController::class);
+});
+
+Route::get('sql', function (){
+
+    dump(
+        DB::table('news')
+            ->join('categories_has_news as chn', 'news.id', '=', 'chn.news_id')
+            ->join('categories', 'chn.category_id', '=', 'categories.id')
+            ->select('news.*', 'categories.name as categoryName')
+            ->orderBy('news.id')
+            ->get()
+    );
+
 });
 
 

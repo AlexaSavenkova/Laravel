@@ -21,22 +21,18 @@
 
                         <div class="card-body">
                             <p>
-                                <a href="{{ route('news.show', ['id' => $news['id']]) }}">
-                                    <strong>{{ $news['title'] }}</strong>
+                                <a href="{{ route('news.show', ['id' => $news->id]) }}">
+                                    <strong>{{ $news->title }}</strong>
                                 </a>
                             </p>
-                            <p>
-                                <a href="{{ route('news.category', ['slug' => $news['category_slug']]) }} " style="text-decoration: none">
-                                   <small>{{ $news['category'] }}</small>
-                                </a>
-                            </p>
-                            <p><strong>Автор: </strong>{{ $news['author'] }}</p>
-                            <p class="card-text">{!! $news['description'] !!}</p>
+
+                            <p><strong>Автор: </strong>{{ $news->author }}</p>
+                            <p class="card-text">{!! $news->description !!}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="{{ route('news.show', ['id' => $news['id']]) }}" type="button" class="btn btn-sm btn-outline-secondary">Смотреть подробнее</a>
+                                    <a href="{{ route('news.show', ['id' => $news->id] ) }}" type="button" class="btn btn-sm btn-outline-secondary">Смотреть подробнее</a>
                                 </div>
-                                <small class="text-muted">Дата добавления: <br> {{ $news['created_at'] }}</small>
+                                <small class="text-muted">Дата добавления: <br> {{ $news->created_at }}</small>
                             </div>
                         </div>
                     </div>

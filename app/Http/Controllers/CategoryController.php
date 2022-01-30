@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     public function index() {
-        $categories = $this->getCategories();
+        $categories = new Category();
+        $categories = $categories->getCategories();
         return view('news.categories', ['categoryList' => $categories]);
     }
 
     public function show($slug)
     {
-        $news = $this->getNews();
-        $newsByCategory = array_filter($news, fn($arr) => $arr['category_slug'] === $slug);
-        $categoryName = $this->getCategoryNameBySlug($slug);
+        $category = new Category();
+        $newsByCategory = $category->getNewsByCategorySlug($slug);
+        $categoryName = $category->getCategoryNameBySlug($slug);
         return view('news.category', ['categoryName'=> $categoryName, 'newsList' => $newsByCategory]);
     }
 }

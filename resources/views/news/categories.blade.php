@@ -21,14 +21,14 @@
 
                         <div class="card-body">
                             <p>
-                                <a href="{{ route('news.category', ['slug'=> $category['slug']]) }}">
-                                    <strong>{{ $category['name'] }}</strong>
+                                <a href="{{ route('news.category', ['slug'=> $category->slug]) }}">
+                                    <strong>{{ $category->name }}</strong>
                                 </a>
                             </p>
 
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="{{ route('news.category', ['slug'=> $category['slug']]) }}" type="button" class="btn btn-sm btn-outline-secondary">Смотреть все новости</a>
+                                    <a href="{{ route('news.category', ['slug'=> $category->slug]) }}" type="button" class="btn btn-sm btn-outline-secondary">Смотреть все новости</a>
                                 </div>
                             </div>
                         </div>
