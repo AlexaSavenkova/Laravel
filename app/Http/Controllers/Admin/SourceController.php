@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Source;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
-class CategoryController extends Controller
+class SourceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(8);
-
-        return view('admin.categories.index', ['categories' => $categories]);
+        $sources = Source::paginate(10);
+        return view('admin.sources.index', ['sources' => $sources]);
     }
 
     /**
@@ -28,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        return view('admin.sources.create');
     }
 
     /**
@@ -41,14 +39,13 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string'],
-            'slug' => 'required',
         ]);
 
         $data = $request->all();
-        $created = Category::create($data);
+        $created = Source::create($data);
         if($created) {
 
-            return redirect()->route('admin.categories.index')
+            return redirect()->route('admin.sources.index')
                 ->with('success', 'Запись успешно добавлена');
         }
         return back()
@@ -71,11 +68,11 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Source $source)
     {
-        return view('admin.categories.edit', ['category' => $category]);
+        return view('admin.sources.edit', ['source' => $source]);
     }
 
     /**
@@ -85,17 +82,16 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Source $source)
     {
         $request->validate([
             'name' => ['required', 'string'],
-            'slug' => 'required',
         ]);
         $data = $request->all();
-        $updated = $category->fill($data)->save();
+        $updated = $source->fill($data)->save();
         if($updated){
 
-            return redirect()->route('admin.categories.index')
+            return redirect()->route('admin.sources.index')
                 ->with('success', 'Запись успешно обновлена');
         }
         return back()

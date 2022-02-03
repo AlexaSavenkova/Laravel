@@ -12,7 +12,10 @@
 
 @section('content')
     <div class="container">
-        <p>Добро пожаловать на наш сайт!</p>
+        @include('inc.message')
+        <br>
+        <p>Главная страница сайта !</p>
+
     </div>
 @endsection
 

@@ -9,8 +9,30 @@
 @endsection
 @section('content')
     <div class="table-responsive">
-        Список категорий
-        <x-alert type="info" message="Сообщение"></x-alert>
+        @include('inc.message')
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#ID</th>
+                    <th>Название</th>
+                    <th>slug</th>
+                    <th>Описание</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($categories as $category)
+                <tr>
+                    <td>{{ $category->id }}</td>
+                    <td>{{ $category->name }}</td>
+                    <td>{{ $category->slug }}</td>
+                    <td>{{ $category->description}}</td>
+
+                    <td><a href="{{ route('admin.categories.edit', ['category'=>$category]) }}">Edit</a>&nbsp;<a href="">Delete</a></td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+        {{ $categories->links() }}
     </div>
 
 @endsection

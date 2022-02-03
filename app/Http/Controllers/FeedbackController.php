@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Feedback;
 use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
@@ -14,14 +15,21 @@ class FeedbackController extends Controller
 
     public function store(Request $request)
     {
-        $data = $this->getArrayFromJsonFile(public_path('/files/feedback.json'));
+        $request->validate([
+            'name' => ['required', 'string'],
+            'feedback' => ['required', 'string'],
+        ]);
 
-        $data[] = $request->all();
-        file_put_contents(public_path('/files/feedback.json'), json_encode($data));
+        $data = $request->all();
+        $created = Feedback::create($data);
+        if($created) {
 
-        $message = 'Спасибо за ваш отзыв';
-        $type = 'primary';
+            return redirect()->route('index')
+                ->with('success', 'Спасибо за ваш отзыв');
+        }
+        return back()
+            ->with('error', 'Не удалось добавить запись')
+            ->withInput();
 
-        return view('message',['message' => $message, 'type' => $type]);
     }
 }

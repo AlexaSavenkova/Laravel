@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('header')
-    <h1 class="h2">Добавить категорию</h1>
+    <h1 class="h2">Редактировать источник данных</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
 
@@ -9,21 +9,19 @@
 @endsection
 @section('content')
     @include('inc.message')
-    <form method="post" action="{{ route('admin.categories.store') }}">
+    <form method="post" action="{{ route('admin.sources.update', ['source' => $source]) }}">
         @csrf
+        @method('put')
         <div class="form-group">
             <label for="title">Наименование</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
-        </div>
-        <div class="form-group">
-            <label for="author">Slug</label>
-            <input type="text" class="form-control" id="slug" name="slug" value="{{ old('slug') }}">
+            <input type="text" class="form-control" id="name" name="name" value="{{ $source->name }}">
         </div>
         <div class="form-group">
             <label for="description">Описание</label>
-            <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
+            <textarea class="form-control" id="description" name="description">{{ $source->description }}</textarea>
         </div>
         <br>
         <button type="submit" class="btn btn-success" style="float:right;">Сохранить</button>
     </form>
 @endsection
+

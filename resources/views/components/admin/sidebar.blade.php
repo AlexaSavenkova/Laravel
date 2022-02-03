@@ -19,6 +19,12 @@
                     Новости
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link @if(request()->routeIs('admin.sources.*')) active @endif" href="{{ route('admin.sources.index') }}">
+                    <span data-feather="database"></span>
+                    Источники данных
+                </a>
+            </li>
         </ul>
 
     </div>

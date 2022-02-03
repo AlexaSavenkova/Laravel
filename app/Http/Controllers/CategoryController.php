@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     public function index() {
-        $categories = new Category();
-        $categories = $categories->getCategories();
+        $categories = Category::select(Category::$availableFields)->get();
         return view('news.categories', ['categoryList' => $categories]);
     }
 
     public function show($slug)
     {
+
         $category = new Category();
         $newsByCategory = $category->getNewsByCategorySlug($slug);
         $categoryName = $category->getCategoryNameBySlug($slug);

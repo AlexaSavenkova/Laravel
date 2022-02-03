@@ -9,6 +9,7 @@ use \App\Http\Controllers\FeedbackController;
 use \App\Http\Controllers\OrderController;
 use \App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use \App\Http\Controllers\Admin\SourceController as AdminSourceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,8 +49,8 @@ Route::prefix('order')->group(function (){
 Route::group(['as'=>'news.', 'prefix'=>'news'], function (){
     Route::get('/', [NewsController::class, 'index'])
         ->name('index');
-    Route::get('/{id}', [NewsController::class, 'show'])
-        ->where('id','\d+')
+    Route::get('/{news}', [NewsController::class, 'show'])
+        ->where('news','\d+')
         ->name('show');
     Route::get('/categories', [CategoryController::class, 'index'])
         ->name('categories');
@@ -62,18 +63,10 @@ Route::group(['as'=>'admin.', 'prefix' => 'admin'], function (){
     Route::view('/', 'admin.index')->name('index');
     Route::resource('/categories', AdminCategoryController::class);
     Route::resource('/news', AdminNewsController::class);
+    Route::resource('/sources', AdminSourceController::class);
 });
 
-Route::get('sql', function (){
-
-    dump(
-        DB::table('news')
-            ->join('categories_has_news as chn', 'news.id', '=', 'chn.news_id')
-            ->join('categories', 'chn.category_id', '=', 'categories.id')
-            ->select('news.*', 'categories.name as categoryName')
-            ->orderBy('news.id')
-            ->get()
-    );
+Route::get('/collection', function (){
 
 });
 

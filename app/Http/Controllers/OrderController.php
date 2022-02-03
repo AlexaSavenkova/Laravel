@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -14,21 +15,21 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->all());
-
         $request->validate([
             'name' => ['required', 'string'],
             'email' => ['required'],
             'info' => ['required', 'string'],
         ]);
-        $data = $this->getArrayFromJsonFile(public_path('/files/orders.json'));
+        $data = $request->all();
+        $created = Order::create($data);
 
-        $data[] = $request->all();
-        file_put_contents(public_path('/files/orders.json'), json_encode($data));
+        if($created) {
 
-        $message = 'Ваш заказ принят';
-        $type = 'success';
-
-        return view('message',['message' => $message, 'type' => $type]);
+            return redirect()->route('index')
+                ->with('success', 'Ваш заказ успешно оформлен');
+        }
+        return back()
+            ->with('error', 'Не удалось оформить заказ')
+            ->withInput();
     }
 }

@@ -12,11 +12,15 @@
 
 @section('content')
     <div class="container">
-{{--        <p>--}}
-{{--            <a href="{{ route('news.category', ['slug'=> $news['category_slug']]) }}">--}}
-{{--                <strong>{{ $news['category'] }}</strong>--}}
-{{--            </a>--}}
-{{--        </p>--}}
+                    {{--        <p>--}}
+                    {{--            <a href="{{ route('news.category', ['slug'=> $news['category_slug']]) }}">--}}
+                    {{--                <strong>{{ $news['category'] }}</strong>--}}
+                    {{--            </a>--}}
+                    {{--        </p>--}}
+        <h4>Категории:</h4>
+        @foreach($news->categories as $category)
+            {{ $category->name }},
+        @endforeach
         <p>Автор: {{ $news->author }} &nbsp; Дата добавления: {{ $news->created_at }}</p>
         <p>{!! $news->description !!}</p>
     </div>
