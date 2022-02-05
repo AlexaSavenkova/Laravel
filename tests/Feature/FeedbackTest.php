@@ -18,7 +18,7 @@ class FeedbackTest extends TestCase
         $response->assertViewIs('feedback');
     }
 
-    public function testOrderStore()
+    public function testFeedbackStore()
     {
         $faker = Factory::create();
         $data = [
@@ -26,8 +26,7 @@ class FeedbackTest extends TestCase
             'feedback' => $faker->text(100),
         ];
         $response = $this->post(route('feedback.store'), $data);
-        $response->assertOk();
-        $response->assertViewHasAll(['type'=>'primary','message']);
-        $response->assertViewIs('message');
+        $response->assertStatus(302);
+        $response->assertRedirect('/');
     }
 }

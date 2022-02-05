@@ -22,19 +22,23 @@
             <div class="form-group">
                 <label for="name">Имя</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
+                @error('name') <strong style="color:red">{{ $message }}</strong> @enderror
             </div>
             <div class="form-group">
                 <label for="tel">Телефон</label>
                 <input type="text" class="form-control" id="tel" name="tel" value="{{ old('tel') }}">
+                @error('tel') <strong style="color:red">{{ $message }}</strong> @enderror
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
+                @error('email') <strong style="color:red">{{ $message }}</strong> @enderror
             </div>
 
             <div class="form-group">
                 <label for="info">Что вы хотите получить</label>
                 <textarea class="form-control" id="info" name="info">{{ old('info') }}</textarea>
+                @error('info') <strong style="color:red">{{ $message }}</strong> @enderror
             </div>
 
             <br>

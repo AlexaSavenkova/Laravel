@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Order\CreateRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -13,23 +14,19 @@ class OrderController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string'],
-            'email' => ['required'],
-            'info' => ['required', 'string'],
-        ]);
-        $data = $request->all();
+
+        $data = $request->validated();
         $created = Order::create($data);
 
         if($created) {
 
             return redirect()->route('index')
-                ->with('success', 'Ваш заказ успешно оформлен');
+                ->with('success',  __('messages.order.created.success'));
         }
         return back()
-            ->with('error', 'Не удалось оформить заказ')
+            ->with('error', __('messages.order.created.error'))
             ->withInput();
     }
 }

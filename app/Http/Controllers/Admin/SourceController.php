@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Source\CreateRequest;
+use App\Http\Requests\Source\UpdateRequest;
 use App\Models\Source;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SourceController extends Controller
 {
@@ -32,24 +36,20 @@ class SourceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string'],
-        ]);
-
-        $data = $request->all();
+        $data = $request->validated();
         $created = Source::create($data);
         if($created) {
 
             return redirect()->route('admin.sources.index')
-                ->with('success', 'Запись успешно добавлена');
+                ->with('success', __('messages.admin.sources.created.success'));
         }
         return back()
-            ->with('error', 'Не удалось добавить запись')
+            ->with('error', __('messages.admin.sources.created.eror'))
             ->withInput();
     }
 
@@ -78,35 +78,38 @@ class SourceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateRequest $request
+     * @param Source $source
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Source $source)
+    public function update(UpdateRequest $request, Source $source)
     {
-        $request->validate([
-            'name' => ['required', 'string'],
-        ]);
-        $data = $request->all();
+        $data = $request->validated();
         $updated = $source->fill($data)->save();
         if($updated){
 
             return redirect()->route('admin.sources.index')
-                ->with('success', 'Запись успешно обновлена');
+                ->with('success', __('messages.admin.sources.updated.success'));
         }
         return back()
-            ->with('error', 'Не удалось обновить запись')
+            ->with('error', __('messages.admin.sources.updated.error'))
             ->withInput();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Source $source
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Source $source)
     {
-        //
+        try{
+            $source->delete();
+            return response()->json('ok');
+        }catch (Exception $e) {
+            Log::error('Source error destroy', [$e]);
+            return response()->json('error', 400);
+        }
     }
 }

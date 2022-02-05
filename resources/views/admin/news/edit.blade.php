@@ -21,17 +21,20 @@
                     >{{$category->name}}</option>
                 @endforeach
             </select>
+            @error('categories') <strong style="color:red">{{ $message }}</strong> @enderror
         </div>
         <div class="form-group">
-            <label for="title">Наименование</label>
+            <label for="title">Заголовок</label>
             <input type="text" class="form-control" id="title" name="title" value="{{ $news->title }}">
+            @error('title') <strong style="color:red">{{ $message }}</strong> @enderror
         </div>
         <div class="form-group">
             <label for="author">Автор</label>
             <input type="text" class="form-control" id="author" name="author" value="{{ $news->author }}">
+            @error('author') <strong style="color:red">{{ $message }}</strong> @enderror
         </div>
         <div class="form-group">
-            <label for="categories">Источник</label>
+            <label for="source_id">Источник</label>
             <select class="form-control" id="source_id" name="source_id">
                 @foreach($sources as $source)
                     <option value="{{ $source->id }}"
@@ -51,6 +54,7 @@
         <div class="form-group">
             <label for="description">Описание</label>
             <textarea class="form-control" id="description" name="description">{{ $news->description }}</textarea>
+            @error('description') <strong style="color:red">{{ $message }}</strong> @enderror
         </div>
         <br>
         <button type="submit" class="btn btn-success" style="float:right;">Сохранить</button>

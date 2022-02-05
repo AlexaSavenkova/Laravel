@@ -22,11 +22,13 @@
             <div class="form-group">
                 <label for="name">Имя</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
+                @error('name') <strong style="color:red">{{ $message }}</strong> @enderror
             </div>
 
             <div class="form-group">
                 <label for="feedback">Отзыв</label>
                 <textarea class="form-control" id="feedback" name="feedback">{{ old('feedback') }}</textarea>
+                @error('feedback') <strong style="color:red">{{ $message }}</strong> @enderror
             </div>
 
             <br>

@@ -25,7 +25,8 @@
                     <td>{{ $source->name }}</td>
                     <td>{{ $source->description}}</td>
 
-                    <td><a href="{{ route('admin.sources.edit', ['source'=>$source]) }}">Edit</a>&nbsp;<a href="">Delete</a></td>
+                    <td><a href="{{ route('admin.sources.edit', ['source'=>$source]) }}">Edit</a>&nbsp;
+                        <a href="javascript:;" class="delete" rel="{{ $source->id }}">Delete</a></td>
                 </tr>
             @endforeach
             </tbody>
@@ -34,4 +35,34 @@
     </div>
 
 @endsection
+
+@push('js')
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            const el = document.querySelectorAll(".delete");
+            el.forEach(function (e, k){
+                e.addEventListener('click', function () {
+                    const id = this.getAttribute('rel');
+                    if(confirm(`Подтвердите удаление источника данных с #ID ${id} ?`)) {
+                        send('/admin/sources/' + id).then(() =>{
+                            location.reload();
+                        })
+                    }
+                });
+            });
+        });
+
+        async function send(url) {
+            let response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                        .getAttribute('content')
+                }
+            });
+            let result = await response.json();
+            return result.ok;
+        }
+    </script>
+@endpush
 

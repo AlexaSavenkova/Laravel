@@ -3,12 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\News\CreateRequest;
+use App\Http\Requests\News\UpdateRequest;
 use App\Models\Category;
 use App\Models\News;
 use App\Models\Source;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class NewsController extends Controller
 {
@@ -45,32 +50,22 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $request->validate([
-            'title' => ['required', 'string', 'min:5']
-        ]);
-        $data = $request->only(['title', 'author', 'status','description','source_id']) + [
+        $data = $request->validated() + [
             'slug' => Str::slug($request->input('title'))
         ];
         $created = News::create($data);
         if($created) {
             $created->categories()->attach($request->input('categories'));
-//            foreach ($request->input('categories') as $category) {
-//                DB::table('categories_has_news')
-//                    ->insert([
-//                       'news_id' => $created->id,
-//                       'category_id' => intval($category),
-//                    ]);
-//            }
             return redirect()->route('admin.news.index')
-                ->with('success', 'Запись успешно добавлена');
+                ->with('success', __('messages.admin.news.created.success'));
         }
         return back()
-            ->with('error', 'Не удалось добавить запись')
+            ->with('error', __('messages.admin.news.created.error'))
             ->withInput();
 
     }
@@ -90,7 +85,7 @@ class NewsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param News $news
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(News $news)
     {
@@ -116,16 +111,14 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param UpdateRequest $request
      * @param News $news
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, News $news)
+    public function update(UpdateRequest $request, News $news)
     {
-        $request->validate([
-            'title' => ['required', 'string', 'min:5']
-        ]);
-        $data = $request->only(['title', 'author', 'status','description', 'source_id']) + [
+
+        $data = $request->validated() + [
                 'slug' => Str::slug($request->input('title'))
         ];
         $updated = $news->fill($data)->save();
@@ -134,10 +127,10 @@ class NewsController extends Controller
             $news->categories()->attach($request->input('categories'));
 
             return redirect()->route('admin.news.index')
-                ->with('success', 'Запись успешно обновлена');
+                ->with('success', __('messages.admin.news.updated.success'));
         }
         return back()
-            ->with('error', 'Не удалось обновить запись')
+            ->with('error', __('messages.admin.news.updated.eror'))
             ->withInput();
     }
 
@@ -149,6 +142,13 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        //
+        try{
+            $news->delete();
+            return response()->json('ok');
+        }catch (Exception $e) {
+            Log::error('News error destroy', [$e]);
+            return response()->json('error', 400);
+        }
+
     }
 }

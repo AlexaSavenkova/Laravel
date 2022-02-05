@@ -31,9 +31,8 @@ class OrderTest extends TestCase
             'info' => $faker->text(100),
         ];
         $response = $this->post(route('order.store'), $data);
-        $response->assertOk();
-        $response->assertViewHasAll(['type','message']);
-        $response->assertViewIs('message');
+        $response->assertStatus(302);
+        $response->assertRedirect('/');
     }
 
 }
