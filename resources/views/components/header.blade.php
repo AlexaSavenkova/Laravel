@@ -14,6 +14,7 @@
                         <li><a href="{{ route('news.categories') }}" class="text-white">Категории</a></li>
                         <li><a href="{{ route('feedback') }}" class="text-white">Обратная связь</a></li>
                         <li><a href="{{ route('order') }}" class="text-white">Заказ на выгрузку данных</a></li>
+                        <li><a href="{{ route('account') }}" class="text-white">Личный кабинет</a></li>
                     </ul>
                 </div>
             </div>
@@ -29,4 +30,6 @@
             </button>
         </div>
     </div>
+
+
 </header>
