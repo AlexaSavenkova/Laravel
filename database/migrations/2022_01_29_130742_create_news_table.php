@@ -16,6 +16,7 @@ class CreateNewsTable extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
+            $table->string('link', 255)->nullable();
             $table->string('slug', 255);
             $table->string('author', 100)
                 ->default('Admin');
@@ -27,6 +28,8 @@ class CreateNewsTable extends Migration
             $table->boolean('isImage')
                 ->default(false);
             $table->text('description')->nullable();
+            $table->string('pubDate')->nullable();
+            $table->string('enclosure::url')->nullable();
             $table->timestamps();
             $table->index(['slug', 'status', 'source_id']);
         });

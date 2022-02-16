@@ -19,7 +19,11 @@
         @if(Auth::user()->is_admin)
             <a href="{{ route('admin.index') }}" style="color:red">В админку</a>
         @endif
-        <br><br>
+        <br>
+        @if(Auth::user()->avatar)
+            <img src="{{ Auth::user()->avatar }}" alt="" style="width:250px;">
+        @endif
+        <br>
         <a href="{{ route('account.logout') }}">Выход</a>
 
     </div>

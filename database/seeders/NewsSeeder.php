@@ -22,10 +22,11 @@ class NewsSeeder extends Seeder
     {
         $data =[];
         $faker = Factory::create();
-        for($i=0; $i<30; $i++) {
+        for($i=0; $i<10; $i++) {
             $title = $faker->sentence(5);
             $data[] = [
                 'title' => $title,
+                'link' => $faker->text(100),
                 'slug' => Str::slug($title),
                 'author' => $faker->userName(),
                 'description' => $faker->text(100),

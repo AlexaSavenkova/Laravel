@@ -21,13 +21,13 @@ class CategoryHasNewsSeeder extends Seeder
     {
         $data =[];
 
-        for($i=1; $i<=30; $i++) { // в NewsSeeder 30 новостей, каждая новость должна принадлежать как минимум к  1 категории
+        for($i=1; $i<=10; $i++) { // в NewsSeeder 10 новостей, каждая новость должна принадлежать как минимум к  1 категории
             $news_id = $i;
             $num = rand(1,3); // каждая новость может иметь от 1 до 3 категорий
             for ($j=1; $j<=$num; $j++){
                 $data[] = [
                     'news_id' => $news_id,
-                    'category_id' => rand(1,10),
+                    'category_id' => rand(1,3),
                 ];
             }
         }

@@ -31,6 +31,12 @@
                     Пользователи
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.parser') }}">
+                    <span data-feather="rss"></span>
+                    Парсинг
+                </a>
+            </li>
         </ul>
 
     </div>

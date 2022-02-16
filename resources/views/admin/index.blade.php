@@ -9,12 +9,9 @@
 @section('content')
     <div class="table-responsive">
         Панель администратора
-        @php
-            $msg = 'Это сообщение создано динамически';
-        @endphp
-        <x-alert type="success" message="Сообщение"></x-alert>
-        <x-alert type="danger" message="Сообщение"></x-alert>
-        <x-alert type="warning" :message="$msg"></x-alert>
+        <br>
+        @include('inc.message')
+
     </div>
 @endsection
 @push('js')

@@ -12,6 +12,8 @@ use \App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use \App\Http\Controllers\Admin\SourceController as AdminSourceController;
 use \App\Http\Controllers\Admin\UserController as AdminUserController;
+use \App\Http\Controllers\Admin\ParserController;
+use \App\Http\Controllers\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,7 +75,10 @@ Route::group(['middleware' => 'auth'], function() {
 
     //admin
     Route::group(['as'=>'admin.', 'prefix' => 'admin', 'middleware' => 'admin'], function (){
-        Route::view('/', 'admin.index')->name('index');
+        Route::get('/parser', ParserController::class)
+            ->name('parser');
+        Route::view('/', 'admin.index')
+            ->name('index');
         Route::resource('/categories', AdminCategoryController::class);
         Route::resource('/news', AdminNewsController::class);
         Route::resource('/sources', AdminSourceController::class);
@@ -81,18 +86,6 @@ Route::group(['middleware' => 'auth'], function() {
     });
 
 });
-
-
-//admin
-
-//Route::get('/account', AccountController::class)->name('account');
-////admin
-//Route::group(['as'=>'admin.', 'prefix' => 'admin'], function (){
-//    Route::view('/', 'admin.index')->name('index');
-//    Route::resource('/categories', AdminCategoryController::class);
-//    Route::resource('/news', AdminNewsController::class);
-//    Route::resource('/sources', AdminSourceController::class);
-//});
 
 Route::get('/session', function (){
     if(session()->has('test')) {
@@ -106,3 +99,12 @@ Route::get('/session', function (){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => 'guest'], function (){
+    Route::get('auth/{network}/redirect', [SocialController::class, 'redirect'])
+        ->where('network', '\w+')
+        ->name('auth.redirect');
+    Route::get('auth/{network}/callback', [SocialController::class, 'callback'])
+        ->where('network', '\w+')
+        ->name('auth.callback');
+});

@@ -22,6 +22,9 @@ class News extends Model
         'status',
         'description',
         'source_id',
+        'link',
+        'pubDate',
+        'enclosure::url',
     ];
 //    protected $guarded = [
 //        'id',

@@ -32,6 +32,7 @@ class CreateRequest extends FormRequest
             'isImage'     => ['nullable', 'boolean'],
             'image'       => ['nullable', 'file', 'image', 'mimes:jpg,png'],
             'description' => ['nullable', 'string'],
+            'link' => ['nullable', 'string'],
         ];
     }
 

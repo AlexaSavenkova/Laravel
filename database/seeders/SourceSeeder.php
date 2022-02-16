@@ -23,7 +23,11 @@ class SourceSeeder extends Seeder
     {
         $data =[];
         $faker = Factory::create();
-        for($i=1; $i<=10; $i++) {
+        $data[] = [
+            'name' => 'Lenta.ru : Новости',
+            'description' => 'Новости, статьи, фотографии, видео. Семь дней в неделю, 24 часа в сутки.',
+        ];
+        for($i=2; $i<=10; $i++) {
 
             $data[] = [
                 'name' => 'Source '. $i,

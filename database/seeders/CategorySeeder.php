@@ -25,61 +25,19 @@ class CategorySeeder extends Seeder
             [
                 'id' => 1,
                 'name' =>  'Политика',
-                'slug' => 'politics',
+                'slug' => 'politika',
                 'description' => $faker->text(100),
             ],
             [
                 'id' => 2,
                 'name' =>  'Экономика',
-                'slug' => 'economics',
+                'slug' => 'ekonomika',
                 'description' => $faker->text(100),
             ],
             [
                 'id' => 3,
-                'name' =>  'Общество',
-                'slug' => 'society',
-                'description' => $faker->text(100),
-            ],
-            [
-                'id' => 4,
-                'name' =>  'Культура',
-                'slug' => 'culture',
-                'description' => $faker->text(100),
-            ],
-            [
-                'id' => 5,
                 'name' =>  'Спорт',
                 'slug' => 'sport',
-                'description' => $faker->text(100),
-            ],
-            [
-                'id' => 6,
-                'name' =>  'IT',
-                'slug' => 'it',
-                'description' => $faker->text(100),
-            ],
-            [
-                'id' => 7,
-                'name' =>  'В мире',
-                'slug' => 'world',
-                'description' => $faker->text(100),
-            ],
-            [
-                'id' => 8,
-                'name' =>  'Наука',
-                'slug' => 'science',
-                'description' => $faker->text(100),
-            ],
-            [
-                'id' => 9,
-                'name' =>  'Кино',
-                'slug' => 'cinema',
-                'description' => $faker->text(100),
-            ],
-            [
-                'id' => 10,
-                'name' =>  'Путешествия',
-                'slug' => 'travel',
                 'description' => $faker->text(100),
             ],
         ];

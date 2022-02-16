@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             SourceSeeder::class,
             NewsSeeder::class,
             CategoryHasNewsSeeder::class,
+            Userseeder::class,
         ]);
     }
 }
