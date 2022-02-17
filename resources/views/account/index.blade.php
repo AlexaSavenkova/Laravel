@@ -16,6 +16,14 @@
         <br>
         <h2>Привет, {{ Auth::user()->name }}</h2>
         <br>
+        @if(session()->has('message'))
+            <p>{{ session()->get('message') }}</p>
+
+            @php
+              session()->forget('message');
+            @endphp
+
+        @endif
         @if(Auth::user()->is_admin)
             <a href="{{ route('admin.index') }}" style="color:red">В админку</a>
         @endif

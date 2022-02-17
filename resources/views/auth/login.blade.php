@@ -9,6 +9,8 @@
 
                 <div class="card-body">
                     <a href="{{ route('auth.redirect', ['network' => 'vkontakte']) }}">Войти через VK</a>
+                    <br>
+                    <a href="{{ route('auth.redirect', ['network' => 'github']) }}">Войти через GitHub</a>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
