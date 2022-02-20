@@ -15,11 +15,13 @@ class CreateCategoriesHasNewsTable extends Migration
     {
         Schema::create('categories_has_news', function (Blueprint $table) {
             $table->foreignId('category_id')
-                ->constrained('categories');
+                ->constrained('categories')
+                ->cascadeOnDelete();
             $table->unsignedBigInteger('news_id');
             $table->foreign('news_id')
                 ->references('id')
-                ->on('news');
+                ->on('news')
+                ->cascadeOnDelete();
         });
     }
 

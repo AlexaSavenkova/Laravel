@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
 
     protected $table = "categories";
     public static $availableFields = ['id', 'name', 'slug', 'description'];
@@ -52,5 +53,14 @@ class Category extends Model
             ->value('name');
 
         return $name;
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
     }
 }

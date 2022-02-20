@@ -12,8 +12,8 @@
     <form method="post" action="{{ route('admin.sources.store') }}">
         @csrf
         <div class="form-group">
-            <label for="name">Наименование</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}">
+            <label for="link">Адрес RSS-ленты</label>
+            <input type="text" class="form-control" id="link" name="link" value="{{ old('link') }}">
             @error('name') <strong style="color:red">{{ $message }}</strong> @enderror
         </div>
         <div class="form-group">

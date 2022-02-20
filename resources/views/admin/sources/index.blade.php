@@ -14,7 +14,7 @@
             <thead>
             <tr>
                 <th>#ID</th>
-                <th>Название</th>
+                <th>Адрес RSS-ленты</th>
                 <th>Описание</th>
             </tr>
             </thead>
@@ -22,7 +22,7 @@
             @foreach($sources as $source)
                 <tr>
                     <td>{{ $source->id }}</td>
-                    <td>{{ $source->name }}</td>
+                    <td>{{ $source->link }}</td>
                     <td>{{ $source->description}}</td>
 
                     <td><a href="{{ route('admin.sources.edit', ['source'=>$source]) }}">Edit</a>&nbsp;

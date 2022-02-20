@@ -34,7 +34,7 @@
                             @endforeach
                         </td>
                         <td>{{ $news->author }}</td>
-                        <td>{{ $news->source->name }}</td>
+                        <td>{{ $news->source->link }}</td>
                         <td>{{ $news->status }}</td>
                         <td>{{ $news->created_at }}</td>
                         <td><a href="{{ route('admin.news.edit', ['news'=>$news]) }}">Edit</a>&nbsp;

@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class SourceSeeder extends Seeder
 {
@@ -22,17 +20,28 @@ class SourceSeeder extends Seeder
     private function getData(): array
     {
         $data =[];
-        $faker = Factory::create();
-        $data[] = [
-            'name' => 'Lenta.ru : Новости',
-            'description' => 'Новости, статьи, фотографии, видео. Семь дней в неделю, 24 часа в сутки.',
+        $urls = [
+            'https://news.yandex.ru/auto.rss',
+            'https://news.yandex.ru/auto_racing.rss',
+            'https://news.yandex.ru/army.rss',
+            'https://news.yandex.ru/gadgets.rss',
+            'https://news.yandex.ru/index.rss',
+            'https://news.yandex.ru/martial_arts.rss',
+            'https://news.yandex.ru/communal.rss',
+            'https://news.yandex.ru/health.rss',
+            'https://news.yandex.ru/games.rss',
+            'https://news.yandex.ru/internet.rss',
+            'https://news.yandex.ru/cyber_sport.rss',
+            'https://news.yandex.ru/movies.rss',
+            'https://news.yandex.ru/cosmos.rss',
+            'https://news.yandex.ru/culture.rss',
         ];
-        for($i=2; $i<=10; $i++) {
-
+        foreach ($urls as $url){
             $data[] = [
-                'name' => 'Source '. $i,
-                'description' => $faker->text(100),
+                'link' => $url,
+                'description' => 'Новости  '. $url,
             ];
+
         }
 
         return $data;

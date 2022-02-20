@@ -13,9 +13,9 @@
         @csrf
         @method('put')
         <div class="form-group">
-            <label for="name">Наименование</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ $source->name }}">
-            @error('name') <strong style="color:red">{{ $message }}</strong> @enderror
+            <label for="link">Адрес RSS-ленты</label>
+            <input type="text" class="form-control" id="link" name="link" value="{{ $source->link }}">
+            @error('link') <strong style="color:red">{{ $message }}</strong> @enderror
         </div>
         <div class="form-group">
             <label for="description">Описание</label>

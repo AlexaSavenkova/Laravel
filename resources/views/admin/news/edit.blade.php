@@ -9,7 +9,7 @@
 @endsection
 @section('content')
     @include('inc.message')
-    <form method="post" action="{{ route('admin.news.update', ['news' => $news]) }}">
+    <form method="post" action="{{ route('admin.news.update', ['news' => $news]) }}" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="form-group">
@@ -39,9 +39,13 @@
                 @foreach($sources as $source)
                     <option value="{{ $source->id }}"
                             @if($source->id == $selectSource) selected @endif
-                    >{{$source->name}}</option>
+                    >{{$source->link}}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="form-group">
+            <label for="image">Загрузить изображение</label>
+            <input type="file" class="form-control" id="image" name="image">
         </div>
         <div class="form-group">
             <label for="status">Статус</label>
@@ -60,4 +64,16 @@
         <button type="submit" class="btn btn-success" style="float:right;">Сохранить</button>
     </form>
 @endsection
+@push('js')
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#description' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+
+@endpush
+
+
 

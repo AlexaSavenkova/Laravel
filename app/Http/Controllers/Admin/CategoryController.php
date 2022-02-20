@@ -43,8 +43,7 @@ class CategoryController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        $data = $request->validated();
-        $created = Category::create($data);
+        $created = Category::create($request->validated());
         if($created) {
 
             return redirect()->route('admin.categories.index')
@@ -86,8 +85,7 @@ class CategoryController extends Controller
      */
     public function update(UpdateRequest $request, Category $category)
     {
-        $data = $request->validated();
-        $updated = $category->fill($data)->save();
+        $updated = $category->fill($request->validated())->save();
         if($updated){
 
             return redirect()->route('admin.categories.index')

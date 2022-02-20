@@ -11,7 +11,7 @@ class NewsController extends Controller
     public function index()
     {
 
-       $news = News::select(News::$availableFields)->get();
+       $news = News::select(News::$availableFields)->orderBy('created_at', 'desc')->get();
        return view('news.index', [
             'newsList' => $news
         ]);

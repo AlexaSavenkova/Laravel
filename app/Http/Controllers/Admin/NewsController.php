@@ -8,12 +8,14 @@ use App\Http\Requests\News\UpdateRequest;
 use App\Models\Category;
 use App\Models\News;
 use App\Models\Source;
+use App\Services\UploadService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+
 
 class NewsController extends Controller
 {
@@ -55,10 +57,7 @@ class NewsController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        $data = $request->validated() + [
-            'slug' => Str::slug($request->input('title'))
-        ];
-        $created = News::create($data);
+        $created = News::create($request->validated());
         if($created) {
             $created->categories()->attach($request->input('categories'));
             return redirect()->route('admin.news.index')
@@ -117,11 +116,14 @@ class NewsController extends Controller
      */
     public function update(UpdateRequest $request, News $news)
     {
+        $validated = $request->validated();
+        if($request->hasFile('image')) {
+            $validated['image'] = app(UploadService::class)
+                ->saveFile($request->file('image'));
+        }
 
-        $data = $request->validated() + [
-                'slug' => Str::slug($request->input('title'))
-        ];
-        $updated = $news->fill($data)->save();
+        $updated = $news->fill($validated)->save();
+
         if($updated){
             $news->categories()->detach();
             $news->categories()->attach($request->input('categories'));

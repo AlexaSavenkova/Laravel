@@ -18,11 +18,6 @@
             @error('name') <strong style="color:red">{{ $message }}</strong> @enderror
         </div>
         <div class="form-group">
-            <label for="slug">Slug</label>
-            <input type="text" class="form-control" id="slug" name="slug" value="{{ $category->slug }}">
-            @error('slug') <strong style="color:red">{{ $message }}</strong> @enderror
-        </div>
-        <div class="form-group">
             <label for="description">Описание</label>
             <textarea class="form-control" id="description" name="description">{{ $category->description }}</textarea>
             @error('description') <strong style="color:red">{{ $message }}</strong> @enderror

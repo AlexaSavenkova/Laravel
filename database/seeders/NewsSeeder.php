@@ -30,7 +30,7 @@ class NewsSeeder extends Seeder
                 'slug' => Str::slug($title),
                 'author' => $faker->userName(),
                 'description' => $faker->text(100),
-                'source_id' => $faker->biasedNumberBetween(1,10),
+                'source_id' => 1,
             ];
         }
 

@@ -34,7 +34,7 @@
             <label for="source_id">Источник</label>
             <select class="form-control" id="source_id" name="source_id">
                 @foreach($sources as $source)
-                    <option value="{{ $source->id }}">{{$source->name}}</option>
+                    <option value="{{ $source->id }}">{{$source->link}}</option>
                 @endforeach
             </select>
         </div>

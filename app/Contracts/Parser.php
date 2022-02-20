@@ -10,10 +10,10 @@ interface Parser
      * @param string $link
      * @return $this
      */
-    public function setLink(string $link): self;
+    public function setLink(string $link, int $source_id): self;
 
     /**
-     * @return array
+     * @return void
      */
-    public function parse(): array;
+    public function parse(): void;
 }
